@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birria La Güera - Birria de Res a Domicilio</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #000;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FF4500, 0 0 20px #FF6347, 0 0 30px #FF4500;
+  letter-spacing: 1px;
+}
+
+.header-btn {
+  background: #FFD700;
+  color: #000;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 900;
+  font-size: 14px;
+  transition: all 0.3s;
+  border: 2px solid #FFD700;
+}
+
+.header-btn:hover {
+  background: #FFA500;
+  border-color: #FFA500;
+  transform: scale(1.05);
+}
+
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('uploads/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 80px 20px 40px;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero h1 {
+  margin-bottom: 20px;
+}
+
+.logo-hero {
+  width: min(420px, 85vw);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+}
+
+.hero h2 {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 30px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.hero-benefits {
+  list-style: none;
+  margin: 30px 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.hero-benefits li {
+  font-size: 18px;
+  margin: 15px 0;
+  padding-left: 30px;
+  position: relative;
+  color: #FFD700;
+}
+
+.hero-benefits li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #FF4500;
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: #FF4500;
+  color: #fff;
+  padding: 20px 50px;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 900;
+  font-size: 20px;
+  margin-top: 20px;
+  transition: all 0.3s;
+  border: 3px solid #FF4500;
+  box-shadow: 0 5px 20px rgba(255,69,0,0.5);
+}
+
+.cta-btn:hover {
+  background: #FFD700;
+  color: #000;
+  border-color: #FFD700;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255,215,0,0.6);
+}
+
+.section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #000;
+}
+
+.section-title span {
+  color: #FF4500;
+  text-shadow: 0 0 10px rgba(255,69,0,0.3);
+}
+
+.menu-section {
+  background: #f9f9f9;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+  border: 3px solid transparent;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255,69,0,0.3);
+  border-color: #FFD700;
+}
+
+.product-img {
+  width: 100%;
+  height: 250px;
+  background: #111;
+}
+
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-info {
+  padding: 25px;
+}
+
+.product-name {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.product-desc {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+}
+
+.product-price {
+  font-size: 36px;
+  color: #FF4500;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+.product-btn {
+  display: block;
+  width: 100%;
+  background: #FFD700;
+  color: #000;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 900;
+  font-size: 18px;
+  transition: all 0.3s;
+  border: 2px solid #FFD700;
+}
+
+.product-btn:hover {
+  background: #FF4500;
+  color: #fff;
+  border-color: #FF4500;
+}
+
+.steps-section {
+  background: #000;
+  color: #fff;
+}
+
+.steps-section .section-title {
+  color: #FFD700;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.step-card {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  border: 2px solid #FFD700;
+  position: relative;
+}
+
+.step-number {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background: #FF4500;
+  color: #fff;
+  border-radius: 50%;
+  line-height: 60px;
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(255,69,0,0.5);
+}
+
+.step-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #FFD700;
+}
+
+.step-desc {
+  font-size: 16px;
+  color: #ccc;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+}
+
+.delivery-section {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  text-align: center;
+}
+
+.delivery-section .section-title {
+  color: #000;
+}
+
+.delivery-highlight {
+  font-size: 32px;
+  color: #000;
+  margin: 30px 0;
+  font-weight: 900;
+}
+
+.delivery-note {
+  font-size: 20px;
+  color: #1a1a1a;
+  background: #fff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.contact-section {
+  background: #1a1a1a;
+  color: #fff;
+  text-align: center;
+}
+
+.contact-section .section-title {
+  color: #FFD700;
+}
+
+.contact-highlight {
+  font-size: 28px;
+  color: #FFD700;
+  margin: 20px 0;
+}
+
+.contact-phone {
+  font-size: 48px;
+  color: #FF4500;
+  margin: 30px 0;
+  font-weight: 900;
+  text-shadow: 0 0 20px rgba(255,69,0,0.3);
+}
+
+.contact-phone a {
+  color: #FF4500;
+  text-decoration: none;
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 5px 20px rgba(37,211,102,0.5);
+  z-index: 999;
+  transition: all 0.3s;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.7);
+}
+
+.whatsapp-float svg { width: 34px; height: 34px; }
+
+@media (min-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .hero h1 {
+    font-size: initial;
+  }
+
+  .hero h2 {
+    font-size: 30px;
+  }
+
+  .header-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero h1 {
+    font-size: initial;
+  }
+
+  .hero h2 {
+    font-size: 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+
+  .cta-btn {
+    font-size: 18px;
+    padding: 18px 40px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">Birria La Güera</div>
+  <a href="#menu" class="header-btn">Pedir ahora</a>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1><img src="uploads/Logo.png" alt="Birria La Güera" class="logo-hero"></h1>
+    <h2>Birria de res a domicilio, lista para disfrutar el sábado</h2>
+    <ul class="hero-benefits">
+      <li>Incluye salsa, tortillas, cebolla, cilantro y limones</li>
+      <li>Entrega a domicilio, costo extra $50</li>
+      <li>Birria jugosa y llena de sabor</li>
+    </ul>
+    <a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="cta-btn">Pedir por WhatsApp</a>
+  </div>
+</section>
+
+<section class="section menu-section" id="menu">
+  <h2 class="section-title">Nuestro <span>Menú</span></h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img"><img src="uploads/litro.jpg" alt="Litro de carne de birria"></div>
+      <div class="product-info">
+        <h3 class="product-name">Litro de Carne</h3>
+        <p class="product-desc">Birria de res jugosa y llena de sabor, perfecta para compartir</p>
+        <div class="product-price">$580</div>
+        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20Litro%20de%20carne%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="product-btn">Comprar por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img"><img src="uploads/medio_litro.jpg" alt="Medio litro de carne de birria"></div>
+      <div class="product-info">
+        <h3 class="product-name">1/2 Litro de Carne</h3>
+        <p class="product-desc">La porción ideal para disfrutar solo o en pareja</p>
+        <div class="product-price">$300</div>
+        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20%201%2F2%20litro%20de%20carne%20de%20birria%20de%20res%20para%20el%20s%C3%A1bado.%20Vi%20la%20promo%20de%20Birria%20La%20G%C3%BCera." target="_blank" class="product-btn">Comprar 1/2 litro por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img"><img src="uploads/consome.jpg" alt="Litro de consomé de birria"></div>
+      <div class="product-info">
+        <h3 class="product-name">Litro de Consomé</h3>
+        <p class="product-desc">El caldito perfecto para acompañar tu birria</p>
+        <div class="product-price">$100</div>
+        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20Litro%20de%20consomé%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="product-btn">Comprar por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section steps-section">
+  <h2 class="section-title">Cómo hacer tu pedido</h2>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <h3 class="step-title">Elige tu presentación</h3>
+      <p class="step-desc">Selecciona entre nuestras opciones de litro, medio litro o consomé</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <h3 class="step-title">Haz tu pedido por WhatsApp</h3>
+      <p class="step-desc">Mándanos mensaje y confirma tu orden</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <h3 class="step-title">Cierro pedido el jueves</h3>
+      <p class="step-desc">Asegura tu birria antes del jueves</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">4</div>
+      <h3 class="step-title">Se entrega el sábado</h3>
+      <p class="step-desc">Recibe tu birria fresca y lista para disfrutar</p>
+    </div>
+  </div>
+</section>
+
+<section class="section delivery-section">
+  <h2 class="section-title">Entrega a domicilio</h2>
+  <div class="delivery-highlight">Costo extra: $50 pesos</div>
+  <div class="delivery-note">
+    ⏰ Cierro pedido el jueves | 📦 Se entrega el sábado
+  </div>
+</section>
+
+<section class="section contact-section">
+  <h2 class="section-title">Pide tu birria para el sábado</h2>
+  <div class="contact-highlight">Birria de res</div>
+  <div class="contact-phone">
+    <a href="tel:5216141961104">(614) 196-1104</a>
+  </div>
+  <a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="cta-btn">Hacer pedido por WhatsApp</a>
+</section>
+
+<a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20s%C3%A1bado.%20Vi%20la%20promo%20de%20Birria%20La%20G%C3%BCera." target="_blank" class="whatsapp-float"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.54 2.36a2 2 0 0 1-.45 2.11L8 9a16 16 0 0 0 6 6l.8-1.15a2 2 0 0 1 2.11-.45c.76.24 1.55.42 2.36.54A2 2 0 0 1 22 16.92z" stroke="white" stroke-width="2"/></svg></a>
+
+</body>
+</html>

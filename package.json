@@ -1,0 +1,7 @@
+{
+  "name": "birria-la-guera",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "bunx serve -l 3000 ."
+  }
+}
