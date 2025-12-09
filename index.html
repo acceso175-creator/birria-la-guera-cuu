@@ -483,6 +483,32 @@ body {
   transition: all 0.3s;
 }
 
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #FFD700;
+  color: #000;
+  font-weight: 900;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  border: 2px solid #FF4500;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.25s ease;
+}
+
+.cart-count.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .cart-float {
   bottom: 120px;
   background: #FF4500;
@@ -710,7 +736,10 @@ body {
 
 <a href="https://wa.me/5216141961104" class="whatsapp-float" aria-label="Abrir WhatsApp" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2a10 10 0 0 0-8.94 14.5L2 22l5.64-1.88A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.07-1.12l-.29-.17-3.35 1.12 1.11-3.26-.18-.3A8 8 0 1 1 20 12a8.01 8.01 0 0 1-8 8Zm4.53-5.77c-.25-.13-1.47-.73-1.7-.82-.23-.08-.4-.12-.58.13-.17.25-.66.82-.8.99-.15.17-.3.19-.55.06-.25-.13-1.05-.39-2-1.24-.74-.65-1.24-1.45-1.38-1.69-.14-.24-.02-.37.11-.5.11-.11.25-.3.37-.45.12-.15.16-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.93-.21-.51-.43-.44-.58-.45h-.5c-.17 0-.45.06-.68.32-.23.25-.9.88-.9 2.15 0 1.26.92 2.48 1.05 2.65.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.19 1.17.16 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.31Z"/></svg></a>
 
-<a href="#" class="cart-float open-cart" aria-label="Ver carrito"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h15l-1.5 9h-12z" stroke="white" stroke-width="2"/><circle cx="9" cy="19" r="1.5" fill="white"/><circle cx="17" cy="19" r="1.5" fill="white"/><path d="M6 6 4 3H2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></a>
+<a href="#" class="cart-float open-cart" aria-label="Ver carrito">
+  <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h15l-1.5 9h-12z" stroke="white" stroke-width="2"/><circle cx="9" cy="19" r="1.5" fill="white"/><circle cx="17" cy="19" r="1.5" fill="white"/><path d="M6 6 4 3H2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+</a>
 
 <script>
   const cart = [];
@@ -735,6 +764,13 @@ body {
     const cartItemsContainer = document.getElementById('cart-items');
     const totalElement = document.getElementById('cart-total');
     const checkoutBtn = document.getElementById('checkout-btn');
+    const cartCount = document.getElementById('cart-count');
+
+    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (cartCount) {
+      cartCount.textContent = totalQty;
+      cartCount.classList.toggle('active', totalQty > 0);
+    }
 
     if (!cart.length) {
       cartItemsContainer.innerHTML = '<div class="cart-empty">Aún no agregas nada a tu pedido.</div>';
