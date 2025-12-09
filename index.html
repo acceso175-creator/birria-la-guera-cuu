@@ -220,6 +220,40 @@ body {
   font-weight: 900;
 }
 
+.qty-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.qty-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid #FFD700;
+  background: #fff7d1;
+  color: #000;
+  font-weight: 900;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: #FFD700;
+}
+
+.qty-input {
+  width: 60px;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #FFD700;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
 .product-btn {
   display: block;
   width: 100%;
@@ -564,6 +598,11 @@ body {
         <h3 class="product-name">Litro de Carne</h3>
         <p class="product-desc">Birria de res jugosa y llena de sabor, perfecta para compartir</p>
         <div class="product-price">$580</div>
+        <div class="qty-selector" data-name="Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Restar una unidad">−</button>
+          <input class="qty-input" type="number" min="1" value="1" inputmode="numeric" aria-label="Cantidad Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Sumar una unidad">+</button>
+        </div>
         <button class="product-btn add-to-cart" data-name="Litro de Carne" data-price="580">Agregar al carrito</button>
       </div>
     </div>
@@ -574,6 +613,11 @@ body {
         <h3 class="product-name">1/2 Litro de Carne</h3>
         <p class="product-desc">La porción ideal para disfrutar solo o en pareja</p>
         <div class="product-price">$300</div>
+        <div class="qty-selector" data-name="1/2 Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Restar una unidad">−</button>
+          <input class="qty-input" type="number" min="1" value="1" inputmode="numeric" aria-label="Cantidad 1/2 Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Sumar una unidad">+</button>
+        </div>
         <button class="product-btn add-to-cart" data-name="1/2 Litro de Carne" data-price="300">Agregar al carrito</button>
       </div>
     </div>
@@ -584,6 +628,11 @@ body {
         <h3 class="product-name">Litro de Consomé</h3>
         <p class="product-desc">El caldito perfecto para acompañar tu birria</p>
         <div class="product-price">$100</div>
+        <div class="qty-selector" data-name="Litro de Consomé">
+          <button class="qty-btn" type="button" aria-label="Restar una unidad">−</button>
+          <input class="qty-input" type="number" min="1" value="1" inputmode="numeric" aria-label="Cantidad Litro de Consomé">
+          <button class="qty-btn" type="button" aria-label="Sumar una unidad">+</button>
+        </div>
         <button class="product-btn add-to-cart" data-name="Litro de Consomé" data-price="100">Agregar al carrito</button>
       </div>
     </div>
@@ -672,12 +721,12 @@ body {
     minimumFractionDigits: 0,
   });
 
-  function addToCart(name, price) {
+  function addToCart(name, price, qty = 1) {
     const item = cart.find((entry) => entry.name === name);
     if (item) {
-      item.quantity += 1;
+      item.quantity += qty;
     } else {
-      cart.push({ name, price: Number(price), quantity: 1 });
+      cart.push({ name, price: Number(price), quantity: qty });
     }
     renderCart();
   }
@@ -743,11 +792,35 @@ body {
     document.getElementById('cart-panel').classList.remove('open');
   }
 
+  document.querySelectorAll('.qty-selector').forEach((wrapper) => {
+    const minusBtn = wrapper.querySelector('.qty-btn:first-child');
+    const plusBtn = wrapper.querySelector('.qty-btn:last-child');
+    const input = wrapper.querySelector('.qty-input');
+
+    const clampValue = () => {
+      const value = Math.max(1, parseInt(input.value, 10) || 1);
+      input.value = value;
+      return value;
+    };
+
+    minusBtn.addEventListener('click', () => {
+      input.value = Math.max(1, clampValue() - 1);
+    });
+
+    plusBtn.addEventListener('click', () => {
+      input.value = clampValue() + 1;
+    });
+
+    input.addEventListener('change', clampValue);
+  });
+
   document.querySelectorAll('.add-to-cart').forEach((btn) => {
     btn.addEventListener('click', () => {
       const { name, price } = btn.dataset;
-      addToCart(name, price);
-      openCartPanel();
+      const qtyInput = btn.previousElementSibling?.querySelector('.qty-input');
+      const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
+      addToCart(name, price, qty);
+      if (qtyInput) qtyInput.value = 1;
     });
   });
 
