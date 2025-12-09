@@ -334,6 +334,69 @@ body {
   gap: 15px;
 }
 
+.cart-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-qty-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 2px solid #FFD700;
+  background: #fff7d1;
+  color: #000;
+  font-weight: 900;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cart-qty-btn:hover {
+  background: #FFD700;
+}
+
+.cart-payment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 2px dashed #ffd36f;
+  border-radius: 12px;
+  background: #fff8e5;
+}
+
+.payment-options {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid #FFD700;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 900;
+  transition: all 0.2s ease;
+}
+
+.payment-option input {
+  accent-color: #FF4500;
+  width: 18px;
+  height: 18px;
+}
+
+.payment-option:hover {
+  background: #fff3c9;
+}
+
 .cart-total {
   font-size: 24px;
   font-weight: 900;
@@ -726,6 +789,20 @@ body {
     <div class="cart-items" id="cart-items">
       <div class="cart-empty">Aún no agregas nada a tu pedido.</div>
     </div>
+    <div class="cart-payment">
+      <strong>Selecciona tu método de pago</strong>
+      <div class="payment-options" id="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Efectivo">
+          <span>Efectivo</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Transferencia">
+          <span>Transferencia</span>
+        </label>
+      </div>
+      <small class="cart-note">Elige una opción para habilitar el envío del pedido.</small>
+    </div>
     <div class="cart-summary">
       <div class="cart-total">Total: <span id="cart-total">$0</span></div>
       <button class="cta-btn cart-btn" id="checkout-btn" disabled>Enviar pedido por WhatsApp</button>
@@ -743,12 +820,18 @@ body {
 
 <script>
   const cart = [];
+  let paymentMethod = '';
 
   const formatter = new Intl.NumberFormat('es-MX', {
     style: 'currency',
     currency: 'MXN',
     minimumFractionDigits: 0,
   });
+
+  function updateCheckoutState() {
+    const checkoutBtn = document.getElementById('checkout-btn');
+    checkoutBtn.disabled = !cart.length || !paymentMethod;
+  }
 
   function addToCart(name, price, qty = 1) {
     const item = cart.find((entry) => entry.name === name);
@@ -763,7 +846,6 @@ body {
   function renderCart() {
     const cartItemsContainer = document.getElementById('cart-items');
     const totalElement = document.getElementById('cart-total');
-    const checkoutBtn = document.getElementById('checkout-btn');
     const cartCount = document.getElementById('cart-count');
 
     const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -774,8 +856,8 @@ body {
 
     if (!cart.length) {
       cartItemsContainer.innerHTML = '<div class="cart-empty">Aún no agregas nada a tu pedido.</div>';
-      checkoutBtn.disabled = true;
       totalElement.textContent = '$0';
+      updateCheckoutState();
       return;
     }
 
@@ -787,10 +869,15 @@ body {
       total += item.price * item.quantity;
       const li = document.createElement('li');
       li.className = 'cart-item';
+      li.dataset.name = item.name;
       li.innerHTML = `
         <div>
           <strong>${item.name}</strong>
-          <span class="cart-qty">x${item.quantity}</span>
+          <div class="cart-qty-controls">
+            <button class="cart-qty-btn" type="button" data-action="decrease" aria-label="Restar ${item.name}">−</button>
+            <span class="cart-qty">x${item.quantity}</span>
+            <button class="cart-qty-btn" type="button" data-action="increase" aria-label="Sumar ${item.name}">+</button>
+          </div>
         </div>
         <div class="cart-price">${formatter.format(item.price * item.quantity)}</div>
       `;
@@ -800,11 +887,22 @@ body {
     cartItemsContainer.innerHTML = '';
     cartItemsContainer.appendChild(list);
     totalElement.textContent = formatter.format(total);
-    checkoutBtn.disabled = false;
+    updateCheckoutState();
+  }
+
+  function updateCartItem(name, delta) {
+    const item = cart.find((entry) => entry.name === name);
+    if (!item) return;
+    item.quantity += delta;
+    if (item.quantity <= 0) {
+      const index = cart.findIndex((entry) => entry.name === name);
+      if (index !== -1) cart.splice(index, 1);
+    }
+    renderCart();
   }
 
   function sendWhatsAppOrder() {
-    if (!cart.length) return;
+    if (!cart.length || !paymentMethod) return;
 
     const lines = cart.map((item) => `- ${item.name} x${item.quantity}: ${formatter.format(item.price * item.quantity)}`);
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -813,6 +911,7 @@ body {
       'Hola, quiero hacer un pedido:',
       ...lines,
       `Total: ${formatter.format(total)}`,
+      `Método de pago: ${paymentMethod}`,
       'Costo de envío se confirma por WhatsApp.'
     ].join('\n');
 
@@ -858,6 +957,22 @@ body {
       addToCart(name, price, qty);
       if (qtyInput) qtyInput.value = 1;
     });
+  });
+
+  document.getElementById('cart-items').addEventListener('click', (event) => {
+    const btn = event.target.closest('.cart-qty-btn');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    const itemEl = btn.closest('.cart-item');
+    const name = itemEl?.dataset.name;
+    if (!name) return;
+    updateCartItem(name, action === 'increase' ? 1 : -1);
+  });
+
+  document.getElementById('payment-options').addEventListener('change', (event) => {
+    if (event.target.name !== 'payment') return;
+    paymentMethod = event.target.value;
+    updateCheckoutState();
   });
 
   document.querySelectorAll('.open-cart').forEach((btn) => btn.addEventListener('click', openCartPanel));
