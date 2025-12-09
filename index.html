@@ -241,6 +241,90 @@ body {
   border-color: #FF4500;
 }
 
+.cart-section {
+  background: #fff5e6;
+}
+
+.cart-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 3px solid #FFD700;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cart-items {
+  font-size: 18px;
+  color: #1a1a1a;
+  min-height: 120px;
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 2px solid #f2f2f2;
+  border-radius: 10px;
+  background: #fffaf0;
+}
+
+.cart-qty {
+  margin-left: 10px;
+  color: #FF4500;
+  font-weight: 900;
+}
+
+.cart-price {
+  font-weight: 900;
+  color: #FF4500;
+}
+
+.cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cart-total {
+  font-size: 24px;
+  font-weight: 900;
+  color: #000;
+}
+
+.cart-btn {
+  width: auto;
+  padding: 15px 24px;
+  font-size: 18px;
+}
+
+.cart-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.cart-note {
+  margin-top: 10px;
+  color: #666;
+  font-size: 16px;
+}
+
 .steps-section {
   background: #000;
   color: #fff;
@@ -436,7 +520,7 @@ body {
       <li>Entrega a domicilio, costo extra $50</li>
       <li>Birria jugosa y llena de sabor</li>
     </ul>
-    <a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="cta-btn">Pedir por WhatsApp</a>
+    <a href="#cart" class="cta-btn">Armar mi pedido</a>
   </div>
 </section>
 
@@ -449,7 +533,7 @@ body {
         <h3 class="product-name">Litro de Carne</h3>
         <p class="product-desc">Birria de res jugosa y llena de sabor, perfecta para compartir</p>
         <div class="product-price">$580</div>
-        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20Litro%20de%20carne%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="product-btn">Comprar por WhatsApp</a>
+        <button class="product-btn add-to-cart" data-name="Litro de Carne" data-price="580">Agregar al carrito</button>
       </div>
     </div>
 
@@ -459,7 +543,7 @@ body {
         <h3 class="product-name">1/2 Litro de Carne</h3>
         <p class="product-desc">La porción ideal para disfrutar solo o en pareja</p>
         <div class="product-price">$300</div>
-        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20%201%2F2%20litro%20de%20carne%20de%20birria%20de%20res%20para%20el%20s%C3%A1bado.%20Vi%20la%20promo%20de%20Birria%20La%20G%C3%BCera." target="_blank" class="product-btn">Comprar 1/2 litro por WhatsApp</a>
+        <button class="product-btn add-to-cart" data-name="1/2 Litro de Carne" data-price="300">Agregar al carrito</button>
       </div>
     </div>
 
@@ -469,9 +553,21 @@ body {
         <h3 class="product-name">Litro de Consomé</h3>
         <p class="product-desc">El caldito perfecto para acompañar tu birria</p>
         <div class="product-price">$100</div>
-        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20Litro%20de%20consomé%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="product-btn">Comprar por WhatsApp</a>
+        <button class="product-btn add-to-cart" data-name="Litro de Consomé" data-price="100">Agregar al carrito</button>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section cart-section" id="cart">
+  <h2 class="section-title">Tu <span>Carrito</span></h2>
+  <div class="cart-box">
+    <div class="cart-items" id="cart-items">Aún no agregas nada a tu pedido.</div>
+    <div class="cart-summary">
+      <div class="cart-total">Total: <span id="cart-total">$0</span></div>
+      <button class="cta-btn cart-btn" id="checkout-btn" disabled>Enviar pedido por WhatsApp</button>
+    </div>
+    <p class="cart-note">El costo de envío es adicional y se confirma por WhatsApp.</p>
   </div>
 </section>
 
@@ -518,10 +614,93 @@ body {
   <div class="contact-phone">
     <a href="tel:5216141961104">(614) 196-1104</a>
   </div>
-  <a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="cta-btn">Hacer pedido por WhatsApp</a>
+  <a href="#cart" class="cta-btn">Terminar pedido en el carrito</a>
 </section>
 
-<a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20s%C3%A1bado.%20Vi%20la%20promo%20de%20Birria%20La%20G%C3%BCera." target="_blank" class="whatsapp-float"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.54 2.36a2 2 0 0 1-.45 2.11L8 9a16 16 0 0 0 6 6l.8-1.15a2 2 0 0 1 2.11-.45c.76.24 1.55.42 2.36.54A2 2 0 0 1 22 16.92z" stroke="white" stroke-width="2"/></svg></a>
+<a href="#cart" class="whatsapp-float" aria-label="Ver carrito"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h15l-1.5 9h-12z" stroke="white" stroke-width="2"/><circle cx="9" cy="19" r="1.5" fill="white"/><circle cx="17" cy="19" r="1.5" fill="white"/><path d="M6 6 4 3H2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></a>
+
+<script>
+  const cart = [];
+
+  const formatter = new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+    minimumFractionDigits: 0,
+  });
+
+  function addToCart(name, price) {
+    const item = cart.find((entry) => entry.name === name);
+    if (item) {
+      item.quantity += 1;
+    } else {
+      cart.push({ name, price: Number(price), quantity: 1 });
+    }
+    renderCart();
+  }
+
+  function renderCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalElement = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    if (!cart.length) {
+      cartItemsContainer.textContent = 'Aún no agregas nada a tu pedido.';
+      checkoutBtn.disabled = true;
+      totalElement.textContent = '$0';
+      return;
+    }
+
+    const list = document.createElement('ul');
+    list.className = 'cart-list';
+
+    let total = 0;
+    cart.forEach((item) => {
+      total += item.price * item.quantity;
+      const li = document.createElement('li');
+      li.className = 'cart-item';
+      li.innerHTML = `
+        <div>
+          <strong>${item.name}</strong>
+          <span class="cart-qty">x${item.quantity}</span>
+        </div>
+        <div class="cart-price">${formatter.format(item.price * item.quantity)}</div>
+      `;
+      list.appendChild(li);
+    });
+
+    cartItemsContainer.innerHTML = '';
+    cartItemsContainer.appendChild(list);
+    totalElement.textContent = formatter.format(total);
+    checkoutBtn.disabled = false;
+  }
+
+  function sendWhatsAppOrder() {
+    if (!cart.length) return;
+
+    const lines = cart.map((item) => `- ${item.name} x${item.quantity}: ${formatter.format(item.price * item.quantity)}`);
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const message = [
+      'Hola, quiero hacer un pedido:',
+      ...lines,
+      `Total: ${formatter.format(total)}`,
+      'Costo de envío se confirma por WhatsApp.'
+    ].join('\n');
+
+    const url = `https://wa.me/5216141961104?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
+
+  document.querySelectorAll('.add-to-cart').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const { name, price } = btn.dataset;
+      addToCart(name, price);
+      document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  document.getElementById('checkout-btn').addEventListener('click', sendWhatsAppOrder);
+</script>
 
 </body>
 </html>
