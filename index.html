@@ -58,7 +58,7 @@ body {
 }
 
 .hero {
-  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('uploads/hero.jpg');
+  background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.45)), url('uploads/hero.jpeg');
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -220,6 +220,40 @@ body {
   font-weight: 900;
 }
 
+.qty-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.qty-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid #FFD700;
+  background: #fff7d1;
+  color: #000;
+  font-weight: 900;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: #FFD700;
+}
+
+.qty-input {
+  width: 60px;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #FFD700;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
 .product-btn {
   display: block;
   width: 100%;
@@ -239,6 +273,153 @@ body {
   background: #FF4500;
   color: #fff;
   border-color: #FF4500;
+}
+
+.cart-section {
+  background: #fff5e6;
+}
+
+.cart-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 3px solid #FFD700;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cart-items {
+  font-size: 18px;
+  color: #1a1a1a;
+  min-height: 120px;
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 2px solid #f2f2f2;
+  border-radius: 10px;
+  background: #fffaf0;
+}
+
+.cart-qty {
+  margin-left: 10px;
+  color: #FF4500;
+  font-weight: 900;
+}
+
+.cart-price {
+  font-weight: 900;
+  color: #FF4500;
+}
+
+.cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cart-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-qty-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 2px solid #FFD700;
+  background: #fff7d1;
+  color: #000;
+  font-weight: 900;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cart-qty-btn:hover {
+  background: #FFD700;
+}
+
+.cart-payment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 2px dashed #ffd36f;
+  border-radius: 12px;
+  background: #fff8e5;
+}
+
+.payment-options {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid #FFD700;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 900;
+  transition: all 0.2s ease;
+}
+
+.payment-option input {
+  accent-color: #FF4500;
+  width: 18px;
+  height: 18px;
+}
+
+.payment-option:hover {
+  background: #fff3c9;
+}
+
+.cart-total {
+  font-size: 24px;
+  font-weight: 900;
+  color: #000;
+}
+
+.cart-btn {
+  width: auto;
+  padding: 15px 24px;
+  font-size: 18px;
+}
+
+.cart-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.cart-note {
+  margin-top: 10px;
+  color: #666;
+  font-size: 16px;
 }
 
 .steps-section {
@@ -347,13 +528,12 @@ body {
   text-decoration: none;
 }
 
-.whatsapp-float {
+.whatsapp-float,
+.cart-float {
   position: fixed;
-  bottom: 30px;
   right: 30px;
   width: 70px;
   height: 70px;
-  background: #25D366;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -361,17 +541,75 @@ body {
   font-size: 40px;
   color: #fff;
   text-decoration: none;
-  box-shadow: 0 5px 20px rgba(37,211,102,0.5);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
   z-index: 999;
   transition: all 0.3s;
 }
 
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 30px rgba(37,211,102,0.7);
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #FFD700;
+  color: #000;
+  font-weight: 900;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  border: 2px solid #FF4500;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.25s ease;
 }
 
-.whatsapp-float svg { width: 34px; height: 34px; }
+.cart-count.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cart-float {
+  bottom: 120px;
+  background: #FF4500;
+  box-shadow: 0 5px 20px rgba(255,69,0,0.4);
+}
+
+.cart-float:hover { box-shadow: 0 8px 30px rgba(255,69,0,0.6); transform: scale(1.05); }
+
+.whatsapp-float {
+  bottom: 30px;
+  background: #25D366;
+  box-shadow: 0 5px 20px rgba(37,211,102,0.5);
+}
+
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.7); }
+
+.whatsapp-float svg, .cart-float svg { width: 34px; height: 34px; }
+
+.cart-panel {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  padding: 20px;
+}
+
+.cart-panel.open { display: flex; }
+
+.cart-box { max-width: 900px; width: min(900px, 100%); }
+
+.cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+.close-cart { background: transparent; border: none; color: #FF4500; font-size: 28px; cursor: pointer; font-weight: 900; }
+
+.cart-empty { text-align: center; color: #666; padding: 20px 0; }
 
 @media (min-width: 768px) {
   .products-grid {
@@ -397,25 +635,119 @@ body {
 }
 
 @media (max-width: 767px) {
-  .hero h1 {
-    font-size: initial;
+  body {
+    background: #fff;
   }
 
-  .hero h2 {
-    font-size: 20px;
+  .header {
+    padding: 12px 16px;
   }
 
   .logo {
     font-size: 18px;
   }
 
-  .section-title {
-    font-size: 32px;
+  .header-btn {
+    padding: 10px 18px;
+    font-size: 13px;
   }
 
-  .cta-btn {
-    font-size: 18px;
-    padding: 18px 40px;
+  .hero {
+    padding: 110px 16px 60px;
+    min-height: auto;
+  }
+
+  .hero h1 {
+    font-size: initial;
+  }
+
+  .hero h2 {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .hero-benefits li {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .section {
+    padding: 60px 16px;
+  }
+
+  .section-title {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .products-grid {
+    gap: 20px;
+  }
+
+  .product-img {
+    height: 200px;
+  }
+
+  .product-name {
+    font-size: 24px;
+  }
+
+  .product-price {
+    font-size: 28px;
+  }
+
+  .cta-btn,
+  .product-btn,
+  .cart-btn {
+    font-size: 17px;
+    padding: 16px 32px;
+  }
+
+  .contact-phone {
+    font-size: 38px;
+  }
+
+  .cart-panel {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .cart-box {
+    width: 100%;
+    max-height: calc(90vh - 20px);
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+  }
+
+  .cart-items {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+
+  .cart-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .whatsapp-float,
+  .cart-float {
+    width: 60px;
+    height: 60px;
+    right: 18px;
+  }
+
+  .cart-float {
+    bottom: 110px;
+  }
+
+  .whatsapp-float {
+    bottom: 24px;
+  }
+
+  .cart-count {
+    min-width: 24px;
+    height: 24px;
+    font-size: 12px;
   }
 }
 </style>
@@ -429,14 +761,14 @@ body {
 
 <section class="hero">
   <div class="hero-content">
-    <h1><img src="uploads/Logo.png" alt="Birria La Güera" class="logo-hero"></h1>
-    <h2>Birria de res a domicilio, lista para disfrutar el sábado</h2>
+    <h1><img src="uploads/logo.png" alt="Birria La Güera" class="logo-hero"></h1>
+    <h2>🔥 Birria de res a domicilio, lista para disfrutar el sábado</h2>
     <ul class="hero-benefits">
       <li>Incluye salsa, tortillas, cebolla, cilantro y limones</li>
       <li>Entrega a domicilio, costo extra $50</li>
       <li>Birria jugosa y llena de sabor</li>
     </ul>
-    <a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="cta-btn">Pedir por WhatsApp</a>
+    <button class="cta-btn open-cart" type="button">Armar mi pedido</button>
   </div>
 </section>
 
@@ -444,32 +776,47 @@ body {
   <h2 class="section-title">Nuestro <span>Menú</span></h2>
   <div class="products-grid">
     <div class="product-card">
-      <div class="product-img"><img src="uploads/litro.jpg" alt="Litro de carne de birria"></div>
+      <div class="product-img"><img src="uploads/litro.jpeg" alt="Litro de carne de birria"></div>
       <div class="product-info">
         <h3 class="product-name">Litro de Carne</h3>
         <p class="product-desc">Birria de res jugosa y llena de sabor, perfecta para compartir</p>
         <div class="product-price">$580</div>
-        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20Litro%20de%20carne%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="product-btn">Comprar por WhatsApp</a>
+        <div class="qty-selector" data-name="Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Restar una unidad">−</button>
+          <input class="qty-input" type="number" min="1" value="1" inputmode="numeric" aria-label="Cantidad Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Sumar una unidad">+</button>
+        </div>
+        <button class="product-btn add-to-cart" data-name="Litro de Carne" data-price="580">Agregar al carrito</button>
       </div>
     </div>
 
     <div class="product-card">
-      <div class="product-img"><img src="uploads/medio_litro.jpg" alt="Medio litro de carne de birria"></div>
+      <div class="product-img"><img src="uploads/medio_litro.jpeg" alt="Medio litro de carne de birria"></div>
       <div class="product-info">
         <h3 class="product-name">1/2 Litro de Carne</h3>
         <p class="product-desc">La porción ideal para disfrutar solo o en pareja</p>
         <div class="product-price">$300</div>
-        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20%201%2F2%20litro%20de%20carne%20de%20birria%20de%20res%20para%20el%20s%C3%A1bado.%20Vi%20la%20promo%20de%20Birria%20La%20G%C3%BCera." target="_blank" class="product-btn">Comprar 1/2 litro por WhatsApp</a>
+        <div class="qty-selector" data-name="1/2 Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Restar una unidad">−</button>
+          <input class="qty-input" type="number" min="1" value="1" inputmode="numeric" aria-label="Cantidad 1/2 Litro de Carne">
+          <button class="qty-btn" type="button" aria-label="Sumar una unidad">+</button>
+        </div>
+        <button class="product-btn add-to-cart" data-name="1/2 Litro de Carne" data-price="300">Agregar al carrito</button>
       </div>
     </div>
 
     <div class="product-card">
-      <div class="product-img"><img src="uploads/consome.jpg" alt="Litro de consomé de birria"></div>
+      <div class="product-img"><img src="uploads/consome.jpeg" alt="Litro de consomé de birria"></div>
       <div class="product-info">
         <h3 class="product-name">Litro de Consomé</h3>
         <p class="product-desc">El caldito perfecto para acompañar tu birria</p>
         <div class="product-price">$100</div>
-        <a href="https://wa.me/5216141961104?text=Hola%20quiero%20pedir%20un%20Litro%20de%20consomé%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="product-btn">Comprar por WhatsApp</a>
+        <div class="qty-selector" data-name="Litro de Consomé">
+          <button class="qty-btn" type="button" aria-label="Restar una unidad">−</button>
+          <input class="qty-input" type="number" min="1" value="1" inputmode="numeric" aria-label="Cantidad Litro de Consomé">
+          <button class="qty-btn" type="button" aria-label="Sumar una unidad">+</button>
+        </div>
+        <button class="product-btn add-to-cart" data-name="Litro de Consomé" data-price="100">Agregar al carrito</button>
       </div>
     </div>
   </div>
@@ -518,10 +865,218 @@ body {
   <div class="contact-phone">
     <a href="tel:5216141961104">(614) 196-1104</a>
   </div>
-  <a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20sábado.%20Vi%20la%20promo%20de%20Birria%20La%20Güera." target="_blank" class="cta-btn">Hacer pedido por WhatsApp</a>
+  <button class="cta-btn open-cart" type="button">Terminar pedido en el carrito</button>
 </section>
 
-<a href="https://wa.me/5216141961104?text=Hola%20quiero%20hacer%20un%20pedido%20de%20birria%20de%20res%20para%20el%20s%C3%A1bado.%20Vi%20la%20promo%20de%20Birria%20La%20G%C3%BCera." target="_blank" class="whatsapp-float"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.81.3 1.6.54 2.36a2 2 0 0 1-.45 2.11L8 9a16 16 0 0 0 6 6l.8-1.15a2 2 0 0 1 2.11-.45c.76.24 1.55.42 2.36.54A2 2 0 0 1 22 16.92z" stroke="white" stroke-width="2"/></svg></a>
+<footer class="section" style="text-align:center; background:#000; color:#fff; padding:50px 20px;">
+  <h3 style="font-size:28px; margin-bottom:10px;">Birria La Güera 🔥</h3>
+  <p style="color:#FFD700; font-weight:900;">¡Nos vemos el sábado con tu pedido listo!</p>
+  <p style="margin-top:15px; color:#ccc;">Recuerda: cierro pedido el jueves | Entrega a domicilio +$50</p>
+</footer>
+
+<div class="cart-panel" id="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+  <div class="cart-box">
+    <div class="cart-header">
+      <h2 class="section-title" id="cart-title" style="margin-bottom:0; font-size:32px;">Tu <span>Carrito</span></h2>
+      <button class="close-cart" aria-label="Cerrar carrito">×</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty">Aún no agregas nada a tu pedido.</div>
+    </div>
+    <div class="cart-payment">
+      <strong>Selecciona tu método de pago</strong>
+      <div class="payment-options" id="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Efectivo">
+          <span>Efectivo</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Transferencia">
+          <span>Transferencia</span>
+        </label>
+      </div>
+      <small class="cart-note">Elige una opción para habilitar el envío del pedido.</small>
+    </div>
+    <div class="cart-summary">
+      <div class="cart-total">Total: <span id="cart-total">$0</span></div>
+      <button class="cta-btn cart-btn" id="checkout-btn" disabled>Enviar pedido por WhatsApp</button>
+    </div>
+    <p class="cart-note">El costo de envío es adicional y se confirma por WhatsApp.</p>
+  </div>
+</div>
+
+<a href="https://wa.me/5216141961104" class="whatsapp-float" aria-label="Abrir WhatsApp" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="M12 2a10 10 0 0 0-8.94 14.5L2 22l5.64-1.88A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.07-1.12l-.29-.17-3.35 1.12 1.11-3.26-.18-.3A8 8 0 1 1 20 12a8.01 8.01 0 0 1-8 8Zm4.53-5.77c-.25-.13-1.47-.73-1.7-.82-.23-.08-.4-.12-.58.13-.17.25-.66.82-.8.99-.15.17-.3.19-.55.06-.25-.13-1.05-.39-2-1.24-.74-.65-1.24-1.45-1.38-1.69-.14-.24-.02-.37.11-.5.11-.11.25-.3.37-.45.12-.15.16-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.93-.21-.51-.43-.44-.58-.45h-.5c-.17 0-.45.06-.68.32-.23.25-.9.88-.9 2.15 0 1.26.92 2.48 1.05 2.65.13.17 1.8 2.75 4.36 3.86.61.26 1.09.42 1.46.54.61.19 1.17.16 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.31Z"/></svg></a>
+
+<a href="#" class="cart-float open-cart" aria-label="Ver carrito">
+  <span class="cart-count" id="cart-count" aria-live="polite">0</span>
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6h15l-1.5 9h-12z" stroke="white" stroke-width="2"/><circle cx="9" cy="19" r="1.5" fill="white"/><circle cx="17" cy="19" r="1.5" fill="white"/><path d="M6 6 4 3H2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+</a>
+
+<script>
+  const cart = [];
+  let paymentMethod = '';
+
+  const formatter = new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency: 'MXN',
+    minimumFractionDigits: 0,
+  });
+
+  function updateCheckoutState() {
+    const checkoutBtn = document.getElementById('checkout-btn');
+    checkoutBtn.disabled = !cart.length || !paymentMethod;
+  }
+
+  function addToCart(name, price, qty = 1) {
+    const item = cart.find((entry) => entry.name === name);
+    if (item) {
+      item.quantity += qty;
+    } else {
+      cart.push({ name, price: Number(price), quantity: qty });
+    }
+    renderCart();
+  }
+
+  function renderCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalElement = document.getElementById('cart-total');
+    const cartCount = document.getElementById('cart-count');
+
+    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+    if (cartCount) {
+      cartCount.textContent = totalQty;
+      cartCount.classList.toggle('active', totalQty > 0);
+    }
+
+    if (!cart.length) {
+      cartItemsContainer.innerHTML = '<div class="cart-empty">Aún no agregas nada a tu pedido.</div>';
+      totalElement.textContent = '$0';
+      updateCheckoutState();
+      return;
+    }
+
+    const list = document.createElement('ul');
+    list.className = 'cart-list';
+
+    let total = 0;
+    cart.forEach((item) => {
+      total += item.price * item.quantity;
+      const li = document.createElement('li');
+      li.className = 'cart-item';
+      li.dataset.name = item.name;
+      li.innerHTML = `
+        <div>
+          <strong>${item.name}</strong>
+          <div class="cart-qty-controls">
+            <button class="cart-qty-btn" type="button" data-action="decrease" aria-label="Restar ${item.name}">−</button>
+            <span class="cart-qty">x${item.quantity}</span>
+            <button class="cart-qty-btn" type="button" data-action="increase" aria-label="Sumar ${item.name}">+</button>
+          </div>
+        </div>
+        <div class="cart-price">${formatter.format(item.price * item.quantity)}</div>
+      `;
+      list.appendChild(li);
+    });
+
+    cartItemsContainer.innerHTML = '';
+    cartItemsContainer.appendChild(list);
+    totalElement.textContent = formatter.format(total);
+    updateCheckoutState();
+  }
+
+  function updateCartItem(name, delta) {
+    const item = cart.find((entry) => entry.name === name);
+    if (!item) return;
+    item.quantity += delta;
+    if (item.quantity <= 0) {
+      const index = cart.findIndex((entry) => entry.name === name);
+      if (index !== -1) cart.splice(index, 1);
+    }
+    renderCart();
+  }
+
+  function sendWhatsAppOrder() {
+    if (!cart.length || !paymentMethod) return;
+
+    const lines = cart.map((item) => `- ${item.name} x${item.quantity}: ${formatter.format(item.price * item.quantity)}`);
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const message = [
+      'Hola, quiero hacer un pedido:',
+      ...lines,
+      `Total: ${formatter.format(total)}`,
+      `Método de pago: ${paymentMethod}`,
+      'Costo de envío se confirma por WhatsApp.'
+    ].join('\n');
+
+    const url = `https://wa.me/5216141961104?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
+
+  function openCartPanel() {
+    document.getElementById('cart-panel').classList.add('open');
+  }
+
+  function closeCartPanel() {
+    document.getElementById('cart-panel').classList.remove('open');
+  }
+
+  document.querySelectorAll('.qty-selector').forEach((wrapper) => {
+    const minusBtn = wrapper.querySelector('.qty-btn:first-child');
+    const plusBtn = wrapper.querySelector('.qty-btn:last-child');
+    const input = wrapper.querySelector('.qty-input');
+
+    const clampValue = () => {
+      const value = Math.max(1, parseInt(input.value, 10) || 1);
+      input.value = value;
+      return value;
+    };
+
+    minusBtn.addEventListener('click', () => {
+      input.value = Math.max(1, clampValue() - 1);
+    });
+
+    plusBtn.addEventListener('click', () => {
+      input.value = clampValue() + 1;
+    });
+
+    input.addEventListener('change', clampValue);
+  });
+
+  document.querySelectorAll('.add-to-cart').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const { name, price } = btn.dataset;
+      const qtyInput = btn.previousElementSibling?.querySelector('.qty-input');
+      const qty = qtyInput ? Math.max(1, parseInt(qtyInput.value, 10) || 1) : 1;
+      addToCart(name, price, qty);
+      if (qtyInput) qtyInput.value = 1;
+    });
+  });
+
+  document.getElementById('cart-items').addEventListener('click', (event) => {
+    const btn = event.target.closest('.cart-qty-btn');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    const itemEl = btn.closest('.cart-item');
+    const name = itemEl?.dataset.name;
+    if (!name) return;
+    updateCartItem(name, action === 'increase' ? 1 : -1);
+  });
+
+  document.getElementById('payment-options').addEventListener('change', (event) => {
+    if (event.target.name !== 'payment') return;
+    paymentMethod = event.target.value;
+    updateCheckoutState();
+  });
+
+  document.querySelectorAll('.open-cart').forEach((btn) => btn.addEventListener('click', openCartPanel));
+  document.querySelector('.close-cart').addEventListener('click', closeCartPanel);
+  document.getElementById('cart-panel').addEventListener('click', (e) => {
+    if (e.target.id === 'cart-panel') closeCartPanel();
+  });
+
+  document.getElementById('checkout-btn').addEventListener('click', sendWhatsAppOrder);
+</script>
 
 </body>
 </html>
